@@ -12,6 +12,8 @@ b-cov
 *.map
 *.vscode
 
+# Environment variables
+.env
 
 pids
 logs
@@ -37,5 +39,3 @@ changelog.md.bk
 .cache-loader
 yarn-error.log
 yarn.lock
-
-.env
