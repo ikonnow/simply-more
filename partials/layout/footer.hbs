@@ -4,11 +4,13 @@
             {{!-- Copy Right --}}
             <div class="footer-copy text-sm order-3 mt-8 flex-none lg:text-left lg:order-none lg:mt-0">
                 &copy; {{date format="YYYY"}} {{@site.title}}. All rights reserved.
-                <div class="mt-2">
-                    Design with
-                    <svg class="icon animated infinite pulse" style="color:red;width:15px"><use xlink:href="#icon-heart"></use></svg>
-                    by
-                    <a href="https://godofredo.ninja" class="hover:text-primary" title="Developer FullStack.">@GodoFredoNinja</a>
+                <div class="mt-2 text-left">
+                    Redesigned with ✨ by
+                    {{#if @site.twitter}}
+                    <a href="{{twitter_url}}" class="hover:text-primary" title="Developer" target="_blank" rel="noopener noreferrer">@ikonnow</a>
+                    {{else}}
+                    <a href="https://x.com/ikonnow" class="hover:text-primary" title="Developer" target="_blank" rel="noopener noreferrer">@ikonnow</a>
+                    {{/if}}
                 </div>
             </div>
 

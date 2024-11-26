@@ -111,7 +111,7 @@ function styles (done) {
 
 // Scripts
 function scripts (done) {
-  const files = ['main', 'post', 'prismjs', 'kusi-doc-post', 'pagination']
+  const files = ['main', 'post', 'prismjs', 'kusi-doc-post', 'pagination', 'corner-radius']
 
   merge(files.map(function (file) {
     return pump([
@@ -130,6 +130,7 @@ function scripts (done) {
       gulpif(!isProduction, sourcemaps.init()),
       gulpif(isProduction, uglify()),
       gulpif(isProduction, header(BuildComments)),
+      rename({ suffix: '.min' }),
       gulpif(!isProduction, sourcemaps.write('./map')),
       dest('assets/scripts'),
       livereload()

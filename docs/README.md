@@ -1,6 +1,6 @@
 # Introduction
 
-**[Simply](https://github.com/godofredoninja/simply)** is a very beautiful and elegant open source theme for [Ghost](https://github.com/TryGhost/Ghost), it is inspired on [Medium](https://medium.com/), for Personal or professional, Portfolio Page, Photography Blog, Lifestyle Blog, Culinary Blog, News Page, Design Blog, and in many other things. **Simply** is very fast 🚀.
+**Simply More** is a beautiful and elegant theme for [Ghost](https://github.com/TryGhost/Ghost), forked from [Simply](https://github.com/godofredoninja/simply) by [@godofredoninja](https://github.com/godofredoninja). It is inspired by [Medium](https://medium.com/) and is suitable for Personal or Professional blogs, Portfolio Pages, Photography Blogs, Lifestyle Blogs, Culinary Blogs, News Pages, Design Blogs, and more. **Simply More** is very fast .
 
 ## General features
 

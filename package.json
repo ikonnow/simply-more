@@ -1,19 +1,19 @@
 {
-  "name": "simply",
-  "description": "simply theme for ghost by @GodoFredoNinja",
-  "demo": "https://godofredo.ninja",
-  "version": "0.4.0",
+  "name": "simply-more",
+  "description": "simply-more theme for ghost by @ikonnow, forked from simply by @godofredoninja",
+  "demo": "https://ingmar.konnow.de",
+  "version": "0.5.0",
   "engines": {
-    "ghost": ">=5.0.0"
+    "ghost": "^5.0.0"
   },
   "license": "GPL-3.0-or-later",
   "screenshots": {
     "desktop": "screenshot.jpg"
   },
   "author": {
-    "name": "GodoFredo",
-    "email": "hello@godofredo.ninja",
-    "url": "https://godofredo.ninja"
+    "name": "ikonnow",
+    "email": "ingmar@konnow.de",
+    "url": "https://ingmar.konnow.de"
   },
   "gpm": {
     "type": "theme",
@@ -27,18 +27,18 @@
     "ghost",
     "theme",
     "ghost-theme",
-    "GodoFredoNinja"
+    "ikonnow"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/godofredoninja/simply"
+    "url": "https://github.com/ikonnow/simply-more"
   },
   "bugs": {
-    "url": "https://github.com/godofredoninja/simply/issues",
-    "email": "hello@godofredo.ninja"
+    "url": "https://github.com/ikonnow/simply-more/issues",
+    "email": "ingmar@konnow.de"
   },
   "config": {
-    "posts_per_page": 18,
+    "posts_per_page": 12,
     "image_sizes": {
       "xxs": {
         "width": 30
@@ -159,6 +159,19 @@
         "type": "text",
         "default": "Sign up for more like this",
         "group": "post"
+      },
+      "corner_radius_factor": {
+        "type": "select",
+        "options": [
+          "0",
+          "0.33",
+          "0.66",
+          "1.0",
+          "1.5"
+        ],
+        "default": "0.66",
+        "group": "design",
+        "label": "Corner Radius Factor"
       }
     }
   },
@@ -189,8 +202,7 @@
     "@babel/plugin-transform-runtime": "^7.18.6",
     "@babel/preset-env": "^7.18.6",
     "@babel/runtime": "^7.18.6",
-    "@tailwindcss/line-clamp": "^0.4.0",
-    "@tailwindcss/typography": "^0.5.4",
+    "@tailwindcss/typography": "^0.5.9",
     "@tryghost/admin-api": "^1.13.2",
     "autoprefixer": "^10.4.7",
     "babelify": "^10.0.0",
@@ -228,11 +240,12 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
+    "tiny-slider": "^2.9.4",
     "infinite-scroll": "^4.0.1",
     "lazysizes": "^5.3.2",
-    "medium-zoom": "^1.0.6",
+    "medium-zoom": "^1.0.8",
     "normalize.css": "^8.0.1",
     "prismjs": "^1.28.0",
-    "tailwindcss": "^3.1.6"
+    "tailwindcss": "^3.3.3"
   }
 }
