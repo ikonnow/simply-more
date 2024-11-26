@@ -69,45 +69,6 @@ const simplySetup = () => {
 
   socialMedia()
 
-  /*  Toggle modal
-  /* ---------------------------------------------------------- */
-  /*const simplyModal = () => {
-    const $modals = docSelectorAll('.js-modal')
-    const $modalButtons = docSelectorAll('.js-modal-button')
-    const $modalCloses = docSelectorAll('.js-modal-close')
-
-    // Modal Click Open
-    if (!$modalButtons.length) return
-    $modalButtons.forEach($el => $el.addEventListener('click', () => openModal($el.dataset.target)))
-
-    // Modal Click Close
-    if (!$modalCloses.length) return
-    $modalCloses.forEach(el => el.addEventListener('click', () => closeModals()))
-
-    const openModal = target => {
-      documentBody.classList.remove('has-menu')
-      const $target = document.getElementById(target)
-      rootEl.classList.add('overflow-hidden')
-      $target.classList.add('is-active')
-    }
-
-    const closeModals = () => {
-      rootEl.classList.remove('overflow-hidden')
-      $modals.forEach($el => $el.classList.remove('is-active'))
-    }
-
-    document.addEventListener('keydown', function (event) {
-      const e = event || window.event
-      if (e.keyCode === 27) {
-        closeModals()
-        // closeDropdowns()
-      }
-    })
-  }
-
-  simplyModal()
-  */
-
   /* Header Transparency
   /* ---------------------------------------------------------- */
   const headerTransparency = () => {

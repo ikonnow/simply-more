@@ -161,8 +161,7 @@ module.exports = {
   },
   variants: {},
   plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/line-clamp')
+    require('@tailwindcss/typography')
   ],
   content: [
     './*.hbs',

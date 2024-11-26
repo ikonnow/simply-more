@@ -1,0 +1,16 @@
+/* Theme Settings */
+:root {
+    --ghost-settings-font_size_factor: 1.0;
+    --ghost-settings-corner_radius_factor: 0.66;
+}
+
+/* Theme Settings Classes */
+.theme-settings {
+    --ghost-settings-font_size_factor: var(--custom-font_size_factor, 1.0);
+    --ghost-settings-corner_radius_factor: var(--custom-corner_radius_factor, 0.66);
+}
+
+/* Dark Mode */
+html.dark {
+    color-scheme: dark;
+}

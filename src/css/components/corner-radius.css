@@ -1,0 +1,90 @@
+/* Corner Radius Styles */
+
+/* Base Corner Radius System */
+:root {
+    --radius-base: 12px;    /* Increased from 8px */
+    --radius-large: 24px;   /* Increased from 16px */
+    --radius-xl: 36px;      /* Increased from 24px */
+}
+
+/* Apply corner radius to all relevant elements */
+.gh-btn,
+button,
+.button,
+.gh-head-button,
+.subscribe-button,
+.pagination-button {
+    border-radius: calc(var(--radius-base) * var(--corner-radius-factor)) !important;
+}
+
+/* Card elements */
+.post-card,
+.story,
+.story-body {
+    border-radius: calc(var(--radius-large) * var(--corner-radius-factor)) !important;
+}
+
+/* Large featured elements */
+.featured-image,
+.kg-gallery-card,
+.kg-width-wide,
+.kg-width-full {
+    border-radius: calc(var(--radius-xl) * var(--corner-radius-factor)) !important;
+}
+
+/* Image containers */
+.kg-image-card,
+.kg-gallery-image,
+.post-image,
+.story-image,
+.post-card-image,
+.author-profile-image,
+.kg-bookmark-thumbnail,
+.kg-video-thumbnail,
+.kg-audio-thumbnail {
+    border-radius: calc(var(--radius-large) * var(--corner-radius-factor)) !important;
+    @apply overflow-hidden;
+}
+
+/* Images */
+.kg-image-card img,
+.kg-gallery-image img,
+.kg-gallery-card img,
+.featured-image img,
+.post-image img,
+.story-image img,
+.post-card-image img,
+.kg-bookmark-thumbnail img,
+.kg-video-thumbnail img,
+.kg-audio-thumbnail img,
+article img,
+.gh-content img {
+    border-radius: calc(var(--radius-large) * var(--corner-radius-factor)) !important;
+    @apply w-full h-auto object-cover;
+}
+
+/* Profile images - maintain aspect ratio */
+.author-profile-image {
+    @apply overflow-hidden;
+}
+
+.author-profile-image img {
+    @apply w-full h-full object-cover;
+}
+
+/* Smooth transitions */
+.gh-btn,
+button,
+.button,
+.gh-head-button,
+.subscribe-button,
+.pagination-button,
+img,
+.post-card,
+.story,
+.featured-image,
+.kg-image-card,
+.kg-gallery-image,
+.kg-gallery-card {
+    transition: border-radius 0.2s ease-in-out !important;
+}

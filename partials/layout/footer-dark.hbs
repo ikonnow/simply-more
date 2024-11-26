@@ -71,11 +71,18 @@
             {{#if @site.secondary_navigation}}<div class="py-4 lg:py-0 flex-none lg:order-1">{{navigation type="secondary"}}</div>{{/if}}
 
             {{!-- Copy --}}
-            <div>
-                &copy; {{date format="YYYY"}} {{@site.title}}. All rights reserved. Design with
-                <svg class="icon is-small animate-pulse text-red-600"><use xlink:href="#icon-heart"></use></svg>
-                by
-                <a href="https://godofredo.ninja" title="Developer FullStack.">@GodoFredoNinja</a>
+            <div class="footer-copy text-left text-sm">
+                <div>
+                    &copy; {{date format="YYYY"}} {{@site.title}}. All rights reserved.
+                    <div class="mt-2">
+                        Redesigned with ✨ by
+                        {{#if @site.twitter}}
+                        <a href="{{twitter_url}}" title="Developer" target="_blank" rel="noopener noreferrer">@ikonnow</a>
+                        {{else}}
+                        <a href="https://x.com/ikonnow" title="Developer" target="_blank" rel="noopener noreferrer">@ikonnow</a>
+                        {{/if}}
+                    </div>
+                </div>
             </div>
         </div>
     </section>
