@@ -111,7 +111,7 @@ function styles (done) {
 
 // Scripts
 function scripts (done) {
-  const files = ['main', 'post', 'prismjs', 'kusi-doc-post', 'pagination', 'corner-radius']
+  const files = ['main', 'post', 'prismjs', 'kusi-doc-post', 'pagination', 'corner-radius', 'infinite-scroll', 'medium-zoom', 'app'];
 
   merge(files.map(function (file) {
     return pump([
@@ -190,9 +190,6 @@ function zipper (done) {
   ], handleError(done))
 }
 
-
-
-
 // TryGhost Admin
 const dotenv = require('dotenv')
 const path = require('path')
@@ -204,15 +201,15 @@ const env = dotenv.config({ path: ENV_FILE })
 async function deploy (done) {
   try {
     const url = process.env.GHOST_API_URL || env.parsed.GHOST_API_URL
-    console.log(url)
+    console.log('Ghost URL:', url)
     const adminApiKey = process.env.GHOST_ADMIN_API_KEY || env.parsed.GHOST_ADMIN_API_KEY
-    console.log(adminApiKey)
-    const themeName = process.env.THEME_NAME || require('./package.json').name
-    console.log('name =', themeName)
+    console.log('Admin API Key:', adminApiKey)
+    const themeName = require('./package.json').name
+    console.log('Theme Name:', themeName)
     const apiVersion = process.env.API_VERSION || require('./package.json').engines['ghost-api']
-    console.log(apiVersion)
+    console.log('API Version:', apiVersion)
     const zipFile = `./dist/${themeName}-v${version}.zip`
-    console.log('zip = ', zipFile)
+    console.log('ZIP File:', zipFile)
 
     const api = new GhostAdminApi({
       url,
@@ -220,17 +217,20 @@ async function deploy (done) {
       version: apiVersion
     })
 
-    await api.themes.upload({ file: zipFile }).then(response => console.log(response)).catch(error => console.error(error))
-    console.log('uploaded')
-    await api.themes.activate(`${themeName}-v${version}`).then(response => console.log(response)).catch(error => console.error(error))
-    console.log('activated')
+    console.log('Uploading theme...')
+    await api.themes.upload({ file: zipFile })
+      .then(response => console.log('Upload Response:', response))
+      .catch(error => console.error('Upload Error:', error))
+    console.log('Activating theme...')
+    await api.themes.activate(`${themeName}-v${version}`)
+      .then(response => console.log('Activation Response:', response))
+      .catch(error => console.error('Activation Error:', error))
     done()
   } catch (err) {
-    console.log('error caught')
+    console.error('Deploy Error:', err)
     handleError(done)
   }
 }
-
 
 const cssWatcher = () => watch('src/css/**', styles)
 const jsWatcher = () => watch(['src/js/**', '*.js'], scripts)
@@ -241,9 +241,32 @@ const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], styles)
 const compile = parallel(styles, scripts, images)
 const watcher = parallel(cssWatcher, jsWatcher, imgWatcher, hbsWatcher)
 
-const build = series(clean, compile)
+const build = series(clean, compile, zipper)
 const production = series(build, copyAmpStyle, copyMainStyle, zipper)
 // const production = series(build)
 const development = series(build, serve, watcher)
 
-module.exports = { build, development, production, deploy }
+const deployWithZip = series(zipper, deploy)
+
+// Deployment task
+const deploySurge = done => {
+  if (!process.env.SURGE_TOKEN) throw new Error('Missing SURGE_TOKEN in env')
+  const exec = require('child_process').exec
+  exec(`surge dist ${process.env.DEPLOY_DOMAIN} --token ${process.env.SURGE_TOKEN}`)
+  done()
+}
+
+// Notification task
+const notify = done => {
+  // Slack webhook integration
+  done()
+}
+
+module.exports = {
+  build,
+  development,
+  production,
+  deploy: deployWithZip,
+  deploySurge,
+  notify
+}
