@@ -1,0 +1,6 @@
+302:
+  # We need to be careful with redirects to avoid loops
+  # Only redirect specific old URLs to new ones if needed
+  # Example: /old-post-url: /new-post-url
+  
+  # Do NOT add general language redirects like /en: /en/ as these can cause redirect loops

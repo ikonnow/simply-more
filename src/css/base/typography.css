@@ -15,6 +15,7 @@ h6 {
 
   font-weight: 700;
   line-height: 1.25;
+  font-family: var(--gh-font-heading, var(--theme-font-heading));
 }
 
 h1 {
@@ -40,4 +41,3 @@ h5 {
 h6 {
   font-size: $font-size-h6;
 }
-

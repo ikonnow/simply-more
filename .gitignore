@@ -14,7 +14,10 @@ b-cov
 
 # Environment variables
 .env
+<<<<<<< HEAD
 .env copy
+=======
+>>>>>>> master
 
 pids
 logs
@@ -40,4 +43,7 @@ changelog.md.bk
 .cache-loader
 yarn-error.log
 yarn.lock
+<<<<<<< HEAD
 .env
+=======
+>>>>>>> master

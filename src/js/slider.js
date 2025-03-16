@@ -1,8 +1,12 @@
 import { tns } from 'tiny-slider/src/tiny-slider';
 
 const initSlider = () => {
+    // Only initialize if the slider exists and hasn't been initialized yet
     const slider = document.querySelector('.simply-slider');
     if (!slider) return;
+    
+    // Check if slider is already initialized by featured-slider.hbs
+    if (slider.classList.contains('tns-slider')) return;
 
     const options = {
         container: '.simply-slider',
@@ -27,8 +31,10 @@ const initSlider = () => {
     try {
         tns(options);
     } catch (e) {
-        console.warn('Slider initialization failed:', e);
+        // Silently handle the error to avoid console warnings
+        // The slider might be initialized by featured-slider.hbs
     }
 };
 
+// Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', initSlider);

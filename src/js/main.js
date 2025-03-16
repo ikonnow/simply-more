@@ -114,6 +114,35 @@ const simplySetup = () => {
 
   darkMode()
 
+  /* Language Switcher
+  /* ---------------------------------------------------------- */
+  const languageSwitcher = () => {
+    const $languageToggle = document.querySelector('.js-language-toggle')
+    const $languageDropdown = document.querySelector('.language-dropdown')
+
+    if (!$languageToggle || !$languageDropdown) return
+
+    $languageToggle.addEventListener('click', function(event) {
+      event.preventDefault()
+      event.stopPropagation()
+      $languageDropdown.classList.toggle('hidden')
+    })
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function() {
+      if (!$languageDropdown.classList.contains('hidden')) {
+        $languageDropdown.classList.add('hidden')
+      }
+    })
+
+    // Prevent closing when clicking inside dropdown
+    $languageDropdown.addEventListener('click', function(event) {
+      event.stopPropagation()
+    })
+  }
+
+  languageSwitcher()
+
   /* DropDown Toggle
   /* ---------------------------------------------------------- */
   const dropDownMenuToggle = () => {

@@ -7,7 +7,11 @@
 {{#contentFor "special_body_class"}}is-article{{/contentFor}}
 
 <article class="post py-vmin8 relative">
+<<<<<<< HEAD
     {{#match @page.show_title_and_feature_image}}
+=======
+    {{#if @page.show_title_and_feature_image}}
+>>>>>>> master
     <header class="post-header godo-canvas">
         <h1 class="post-title text-32 md:text-4xl lg:text-44 text-title leading-tight">{{title}}</h1>
         {{#if custom_excerpt}}<p class="post-excerpt mt-6 text-22 text-gray-500">{{custom_excerpt}}</p>{{/if}}
@@ -15,7 +19,11 @@
         {{!-- Post Image - partials/article/article-featured-image.hbs --}}
         {{#if feature_image}}{{> "article/article-featured-image" image=feature_image class="block mt-12 kg-width-wide"}}{{/if}}
     </header>
+<<<<<<< HEAD
     {{/match}}
+=======
+    {{/if}}
+>>>>>>> master
 
     <section id="post-body" class="post-body godo-canvas mx-auto relative {{#if @custom.post_font "==" "font-serif"}}font-serif{{else}}font-sans{{/if}}">{{content}}</section>
 </article>

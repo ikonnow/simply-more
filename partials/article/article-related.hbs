@@ -1,20 +1,49 @@
 {{#if post.tags}}
-{{#get "posts" limit="6" filter="tags:[{{post.tags}}]+id:-{{post.id}}" as |post_related|}}
-{{#if post_related}}
-<div class="post-related bg-gray-150 py-10">
-    <div class="container mx-auto">
-        <div class="max-w-1100 mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <h3 class="text-title text-32 col-span-full mb-10 text-center">
-                {{{t "Related <span class='text-primary'>Articles</span>"}}}
-            </h3>
+{{!-- Get the current post's language tag --}}
+{{#get "posts" limit="1" filter="id:{{post.id}}" include="tags" as |current_post|}}
+    {{#foreach current_post}}
+        {{#foreach tags}}
+            {{#has tag="en"}}
+                {{#get "posts" limit="6" filter="tags:[{{../post.tags}}]+id:-{{../post.id}}+tag:en" as |post_related|}}
+                {{#if post_related}}
+                <div class="post-related bg-gray-150 py-10">
+                    <div class="container mx-auto">
+                        <div class="max-w-1100 mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <h3 class="text-title text-32 col-span-full mb-10 text-center">
+                                {{{t "Related <span class='text-primary'>Articles</span>"}}}
+                            </h3>
 
-            {{!-- Meta - partials/story/story-card-small.hbs --}}
-            {{#foreach post_related}}
-                {{> "story/story-card-small"}}
-            {{/foreach}}
-        </div>
-    </div>
-</div>
-{{/if}}
+                            {{!-- Meta - partials/story/story-card-small.hbs --}}
+                            {{#foreach post_related}}
+                                {{> "story/story-card-small"}}
+                            {{/foreach}}
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+                {{/get}}
+            {{/has}}
+            {{#has tag="de"}}
+                {{#get "posts" limit="6" filter="tags:[{{../post.tags}}]+id:-{{../post.id}}+tag:de" as |post_related|}}
+                {{#if post_related}}
+                <div class="post-related bg-gray-150 py-10">
+                    <div class="container mx-auto">
+                        <div class="max-w-1100 mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <h3 class="text-title text-32 col-span-full mb-10 text-center">
+                                {{{t "Related <span class='text-primary'>Articles</span>"}}}
+                            </h3>
+
+                            {{!-- Meta - partials/story/story-card-small.hbs --}}
+                            {{#foreach post_related}}
+                                {{> "story/story-card-small"}}
+                            {{/foreach}}
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+                {{/get}}
+            {{/has}}
+        {{/foreach}}
+    {{/foreach}}
 {{/get}}
 {{/if}}

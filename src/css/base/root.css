@@ -6,6 +6,10 @@
   --color-primary: var(--ghost-accent-color);
   --blank: #fff;
 
+  /* Theme Fonts */
+  --theme-font-heading: Inter, sans-serif;
+  --theme-font-body: 'PT Serif', serif;
+
   /* Global Color */
   --bg-base: #fff;
   --text-base: $primary-text-color;
