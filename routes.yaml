@@ -4,53 +4,82 @@ routes:
   /account/: members/account
   /membership/: members/membership
 
-  /featured/:
+  # Language routes
+  /de/:
     controller: channel
-    filter: 'tag:-[hash-portfolio,hash-kusi-doc]'
-    limit: 12
-    template: godo-template-featured
-    # Optional for metada for seo
-    # data: page.home-featured
-
-  /archive/:
+    template: index
+    filter: 'tag:de'
+  
+  /en/:
     controller: channel
-    filter: 'tag:-[hash-portfolio,hash-kusi-doc]'
-    limit: all
-    template: godo-archive
+    template: index
+    filter: 'tag:en'
 
-  /grid/:
-    controller: channel
-    filter: 'tag:-[hash-portfolio,hash-kusi-doc]'
-    limit: 12
-    template: godo-template-grid
+  # Language-specific content routes
+  /de/{slug}/:
+    controller: entry
+    filter: 'tag:de+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
+    template: index
 
-  /sidebar/:
-    controller: channel
-    filter: 'tag:-[hash-portfolio,hash-kusi-doc]'
-    limit: 12
-    template: godo-template-sidebar
+  /en/{slug}/:
+    controller: entry
+    filter: 'tag:en+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
+    template: index
 
-  /medium/:
-    controller: channel
-    filter: 'tag:-[hash-portfolio,hash-kusi-doc]'
-    template: godo-template-medium
-    limit: 14
+  # Language-specific post routes
+  /de/post/{slug}/:
+    controller: entry
+    filter: 'tag:de+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
+    template: post
 
-  /featured-slider/:
-    controller: channel
-    filter: 'tag:-[hash-portfolio,hash-kusi-doc]'
-    template: godo-template-featured-slider
+  /en/post/{slug}/:
+    controller: entry
+    filter: 'tag:en+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
+    template: post
 
-  /photographer/:
-    controller: channel
-    filter: 'tag:-[hash-portfolio,hash-kusi-doc]'
-    template: godo-template-photographer
-    limit: 12
+  # Portfolio routes
+  /portafolio/{slug}/:
+    controller: entry
+    filter: 'tag:[hash-portfolio]'
+    template: godo-template-portfolio
+    data:
+      post: page.porftfolio
 
-  /personal/:
-    template: godo-home-personal
-    data: page.godo-personal
+  # Podcast routes
+  /podcast/{slug}/:
+    controller: entry
+    filter: 'tag:[hash-podcast]'
+    template: godo-podcast
+    data:
+      post: page.podcast
 
+  # Documentation routes
+  /docs/{slug}/:
+    controller: entry
+    filter: 'tag:[hash-kusi-doc]'
+    template: godo-kusi-doc
+    data:
+      post: page.docs
+
+  # Default post route (fallback)
+  /{slug}/:
+    controller: entry
+    filter: 'tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
+    template: post
+
+  # Author route
+  /author/{slug}/:
+    controller: author
+    template: author
+    filter: 'tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
+
+  # Tag route - exclude language tags
+  /tag/{slug}/:
+    controller: tag
+    template: tag
+    filter: 'slug:-[en,de]'
+
+  # Medium with sidebar
   /medium-sidebar/:
     controller: channel
     template: godo-template-medium-sidebar
@@ -85,10 +114,20 @@ collections:
     filter: 'tag:[hash-kusi-doc]'
     template: godo-home-kusi-doc
 
-  # Default
+  # Language-specific collections
+  /de/:
+    permalink: /de/{slug}/
+    filter: 'tag:de+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
+    template: index
+
+  /en/:
+    permalink: /en/{slug}/
+    filter: 'tag:en+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
+    template: index
+
+  # Default (fallback for backward compatibility)
   /:
     permalink: /{slug}/
-    filter: 'tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
     template: index
 
 taxonomies:

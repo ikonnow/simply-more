@@ -24,18 +24,31 @@
 {{#contentFor "scripts"}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/min/tiny-slider.js" integrity="sha512-j+F4W//4Pu39at5I8HC8q2l1BNz4OF3ju39HyWeqKQagW6ww3ZF9gFcu8rzUbyTDY7gEo/vqqzGte0UPpo65QQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    var slider = tns({
-        container: '.simply-slider',
-        loop: true,
-        mouseDrag: true,
-        items: 1,
-        nav: false,
-        speed: 400,
-        autoplay: true,
-        autoplayButtonOutput: false,
-        prevButton: '.simply-slider-prev',
-        nextButton: '.simply-slider-next',
-        mode: 'gallery'
+    document.addEventListener('DOMContentLoaded', function() {
+        // Only initialize if the slider exists
+        var sliderElement = document.querySelector('.simply-slider');
+        var prevButton = document.querySelector('.simply-slider-prev');
+        var nextButton = document.querySelector('.simply-slider-next');
+        
+        if (sliderElement && prevButton && nextButton) {
+            try {
+                var slider = tns({
+                    container: '.simply-slider',
+                    loop: true,
+                    mouseDrag: true,
+                    items: 1,
+                    nav: false,
+                    speed: 400,
+                    autoplay: true,
+                    autoplayButtonOutput: false,
+                    prevButton: '.simply-slider-prev',
+                    nextButton: '.simply-slider-next',
+                    mode: 'gallery'
+                });
+            } catch (e) {
+                console.log('Slider initialization skipped or failed');
+            }
+        }
     });
 </script>
 {{/contentFor}}

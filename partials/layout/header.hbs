@@ -27,6 +27,17 @@
         {{/if}}
 
         <div class="header-right flex-none flex justify-end items-center">
+            {{!-- Language Switcher --}}
+            <div class="language-switcher relative mr-2">
+                <a role="button" class="js-language-toggle button is-white items-center" aria-label="Language Switcher">
+                    <span class="current-language">{{#match @site.locale "de"}}DE{{else}}EN{{/match}}</span>
+                </a>
+                <div class="language-dropdown absolute right-0 top-full mt-1 bg-white dark:bg-gray-800 shadow-md rounded-md hidden">
+                    <a href="/de/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 {{#match @site.locale "de"}}font-bold{{/match}}">DE</a>
+                    <a href="/en/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 {{#match @site.locale "en"}}font-bold{{/match}}">EN</a>
+                </div>
+            </div>
+
             {{!-- Light and Dark Mode --}}
             <a role="button" class="js-dark-mode button is-white items-center mr-2" aria-label="Dark and Light Mode">
                 <svg class="icon icon--moon m-0" style="margin-right:calc(-0.5em - 1px)"><use xlink:href="#icon-moon"></use></svg>

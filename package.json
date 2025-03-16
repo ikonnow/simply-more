@@ -2,7 +2,7 @@
   "name": "simply-more",
   "description": "simply-more theme for ghost by @ikonnow, forked from simply by @godofredoninja",
   "demo": "https://ingmar.konnow.de",
-  "version": "0.5.0",
+  "version": "0.5.0-beta.17",
   "engines": {
     "ghost": "^5.0.0"
   },

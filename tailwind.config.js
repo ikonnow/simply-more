@@ -5,8 +5,8 @@ module.exports = {
   // darkMode: 'class',
   theme: {
     fontFamily: {
-      sans: ['Inter', ...defaultTheme.fontFamily.sans],
-      serif: ['PT Serif', ...defaultTheme.fontFamily.serif]
+      sans: ['var(--gh-font-heading, var(--theme-font-heading))', ...defaultTheme.fontFamily.sans],
+      serif: ['var(--gh-font-body, var(--theme-font-body))', ...defaultTheme.fontFamily.serif]
     },
     colors: {
       transparent: 'transparent',
