@@ -111,11 +111,7 @@ function styles (done) {
 
 // Scripts
 function scripts (done) {
-<<<<<<< HEAD
-  const files = ['main', 'post', 'prismjs', 'kusi-doc-post', 'pagination', 'corner-radius', 'infinite-scroll', 'medium-zoom', 'app'];
-=======
   const files = ['main', 'post', 'prismjs', 'kusi-doc-post', 'pagination', 'corner-radius']
->>>>>>> master
 
   merge(files.map(function (file) {
     return pump([
@@ -221,7 +217,6 @@ async function deploy (done) {
       version: apiVersion
     })
 
-<<<<<<< HEAD
     console.log('Uploading theme...')
     await api.themes.upload({ file: zipFile })
       .then(response => console.log('Upload Response:', response))
@@ -230,12 +225,6 @@ async function deploy (done) {
     await api.themes.activate(`${themeName}-v${version}`)
       .then(response => console.log('Activation Response:', response))
       .catch(error => console.error('Activation Error:', error))
-=======
-    await api.themes.upload({ file: zipFile }).then(response => console.log(response)).catch(error => console.error(error))
-    console.log('uploaded')
-    await api.themes.activate(`${themeName}-v${version}`).then(response => console.log(response)).catch(error => console.error(error))
-    console.log('activated')
->>>>>>> master
     done()
   } catch (err) {
     console.error('Deploy Error:', err)
