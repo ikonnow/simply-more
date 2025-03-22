@@ -17,7 +17,7 @@
         </div> --}}
 
         {{!-- Navigation for Mobile --}}
-        {{#if @site.navigation}}<div class="py-4 flex-auto">{{navigation navigationMobile=true}}</div>{{/if}}
+        {{> "multilingual-navigation-mobile"}}
 
         {{!-- Social Media - partilas/widget/social-media.hbs --}}
         {{> "widget/social-media" class="nav-mob-social-media social-media is-inline py-4"}}

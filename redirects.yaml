@@ -1,6 +1,28 @@
 302:
-  # We need to be careful with redirects to avoid loops
-  # Only redirect specific old URLs to new ones if needed
-  # Example: /old-post-url: /new-post-url
+  # Language-specific redirects for old URLs
   
-  # Do NOT add general language redirects like /en: /en/ as these can cause redirect loops
+  # Legacy redirects
+  /docs/: /info/
+  /docs/{slug}/: /info/{slug}/
+  /en/docs/: /faq/
+  /en/docs/{slug}/: /faq/{slug}/
+  
+  # Author legacy redirects
+  /author/: /profil/
+  /de/author/: /profil/
+  /en/author/: /team/
+  /author/{slug}/: /profil/{slug}/
+  /de/author/{slug}/: /profil/{slug}/
+  /en/author/{slug}/: /team/{slug}/
+  
+  # Portfolio legacy redirects
+  /portafolio/: /referenzen/
+  /de/portafolio/: /referenzen/
+  /en/portafolio/: /portfolio/
+  /portafolio/{slug}/: /referenzen/{slug}/
+  /de/portafolio/{slug}/: /referenzen/{slug}/
+  /en/portafolio/{slug}/: /portfolio/{slug}/
+  
+  # Old language prefixes
+  /de/: /
+  /de/{slug}/: /{slug}/

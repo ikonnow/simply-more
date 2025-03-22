@@ -4,82 +4,179 @@ routes:
   /account/: members/account
   /membership/: members/membership
 
-  # Language routes
+  # Default route - German content only
+  /:
+    controller: channel
+    filter: 'tag:de'
+    template: index
+
+  # Static pages
+  /impressum/:
+    controller: page
+    template: page
+
+  /datenschutz/:
+    controller: page
+    template: page
+
+  /privacy-policy/:
+    controller: page
+    template: page
+
+  /imprint/:
+    controller: page
+    template: page
+
+  # Language-specific routes
   /de/:
     controller: channel
-    template: index
     filter: 'tag:de'
-  
+    template: index
+
   /en/:
     controller: channel
-    template: index
     filter: 'tag:en'
+    template: index
 
-  # Language-specific content routes
+  # Language-specific author routes
+  /profil/:
+    controller: channel
+    filter: 'tag:team+tag:de'
+    template: authors
+
+  /team/:
+    controller: channel
+    filter: 'tag:team+tag:en'
+    template: authors
+
+  # Individual post/page routes - German
+  /info/{slug}/:
+    controller: entry
+    filter: 'tag:kusi-doc+tag:de'
+    data:
+      post: page.custom-kusi-doc
+    template: custom-kusi-doc
+
+  /profil/{slug}/:
+    controller: entry
+    filter: 'tag:team+tag:de'
+    data:
+      post: page.author
+    template: author
+
+  /referenzen/{slug}/:
+    controller: entry
+    filter: 'tag:portfolio+tag:de'
+    data:
+      post: page.portfolio
+    template: godo-template-portfolio
+
+  /aktuell/{slug}/:
+    controller: entry
+    filter: 'tag:news+tag:de'
+    data:
+      post: page.post
+    template: post
+
+  # Individual post/page routes - English
+  /faq/{slug}/:
+    controller: entry
+    filter: 'tag:kusi-doc+tag:en'
+    data:
+      post: page.custom-kusi-doc
+    template: custom-kusi-doc
+
+  /team/{slug}/:
+    controller: entry
+    filter: 'tag:team+tag:en'
+    data:
+      post: page.author
+    template: author
+
+  /portfolio/{slug}/:
+    controller: entry
+    filter: 'tag:portfolio+tag:en'
+    data:
+      post: page.portfolio
+    template: godo-template-portfolio
+
+  /now/{slug}/:
+    controller: entry
+    filter: 'tag:news+tag:en'
+    data:
+      post: page.post
+    template: post
+
+  # Podcast individual posts
+  /podcast/{slug}/:
+    controller: entry
+    filter: 'tag:podcast'
+    data:
+      post: page.podcast
+    template: godo-podcast
+
+  # Default individual posts for language-specific content
   /de/{slug}/:
     controller: entry
-    filter: 'tag:de+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
-    template: index
+    filter: 'tag:de+tag:-[kusi-doc,team,portfolio,news,podcast]'
+    data:
+      post: page.post
+    template: post
 
   /en/{slug}/:
     controller: entry
-    filter: 'tag:en+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
-    template: index
-
-  # Language-specific post routes
-  /de/post/{slug}/:
-    controller: entry
-    filter: 'tag:de+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
+    filter: 'tag:en+tag:-[kusi-doc,team,portfolio,news,podcast]'
+    data:
+      post: page.post
     template: post
 
-  /en/post/{slug}/:
-    controller: entry
-    filter: 'tag:en+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
-    template: post
+  # Featured templates
+  /featured/:
+    controller: channel
+    filter: 'tag:-portfolio'
+    limit: 12
+    template: godo-template-featured
 
-  # Portfolio routes
-  /portafolio/{slug}/:
-    controller: entry
-    filter: 'tag:[hash-portfolio]'
-    template: godo-template-portfolio
-    data:
-      post: page.porftfolio
+  /archive/:
+    controller: channel
+    filter: 'tag:-portfolio'
+    limit: all
+    template: godo-archive
 
-  # Podcast routes
-  /podcast/{slug}/:
-    controller: entry
-    filter: 'tag:[hash-podcast]'
-    template: godo-podcast
-    data:
-      post: page.podcast
+  /grid/:
+    controller: channel
+    filter: 'tag:-portfolio'
+    limit: 12
+    template: godo-template-grid
 
-  # Documentation routes
-  /docs/{slug}/:
-    controller: entry
-    filter: 'tag:[hash-kusi-doc]'
-    template: godo-kusi-doc
-    data:
-      post: page.docs
+  /sidebar/:
+    controller: channel
+    filter: 'tag:-portfolio'
+    limit: 12
+    template: godo-template-sidebar
 
-  # Default post route (fallback)
-  /{slug}/:
-    controller: entry
-    filter: 'tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
-    template: post
+  /medium/:
+    controller: channel
+    filter: 'tag:-portfolio'
+    template: godo-template-medium
+    limit: 14
 
-  # Author route
-  /author/{slug}/:
-    controller: author
-    template: author
-    filter: 'tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
+  /featured-slider/:
+    controller: channel
+    filter: 'tag:-portfolio'
+    template: godo-template-featured-slider
 
-  # Tag route - exclude language tags
-  /tag/{slug}/:
-    controller: tag
-    template: tag
-    filter: 'slug:-[en,de]'
+  /photographer/:
+    controller: channel
+    filter: 'tag:-portfolio'
+    template: godo-template-photographer
+    limit: 12
 
-  # Medium with sidebar
+  /personal/:
+    template: godo-home-personal
+    data: 
+      post: page.godo-personal
+
   /medium-sidebar/:
     controller: channel
     template: godo-template-medium-sidebar
@@ -92,43 +189,67 @@ routes:
     content_type: text/xml
 
 collections:
-  # PortFolio
-  /portafolio/:
-    permalink: /portafolio/{slug}/
-    filter: 'tag:[hash-portfolio]'
-    data: page.porftfolio
+  # German collections
+  /info/:
+    permalink: /info/{slug}/
+    filter: 'tag:kusi-doc+tag:de'
+    template: custom-kusi-doc
+
+  /profil/:
+    permalink: /profil/{slug}/
+    filter: 'tag:team+tag:de'
+    template: author
+
+  /referenzen/:
+    permalink: /referenzen/{slug}/
+    filter: 'tag:portfolio+tag:de'
     template: godo-template-portfolio
     limit: all
+
+  /aktuell/:
+    permalink: /aktuell/{slug}/
+    filter: 'tag:news+tag:de'
+    template: index
+
+  # English collections
+  /faq/:
+    permalink: /faq/{slug}/
+    filter: 'tag:kusi-doc+tag:en'
+    template: custom-kusi-doc
+
+  /team/:
+    permalink: /team/{slug}/
+    filter: 'tag:team+tag:en'
+    template: author
+
+  /portfolio/:
+    permalink: /portfolio/{slug}/
+    filter: 'tag:portfolio+tag:en'
+    template: godo-template-portfolio
+    limit: all
+
+  /now/:
+    permalink: /now/{slug}/
+    filter: 'tag:news+tag:en'
+    template: index
 
   # Podcast
   /podcast/:
     permalink: /podcast/{slug}/
-    filter: 'tag:[hash-podcast]'
-    data: page.podcast
+    filter: 'tag:podcast'
     template: godo-podcast
     limit: 10
 
-  # Documentation
-  /docs/:
-    permalink: /docs/{slug}/
-    filter: 'tag:[hash-kusi-doc]'
-    template: godo-home-kusi-doc
-
-  # Language-specific collections
+  # Default collections for language-specific content
   /de/:
     permalink: /de/{slug}/
-    filter: 'tag:de+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
-    template: index
+    filter: 'tag:de+tag:-[kusi-doc,team,portfolio,news,podcast]'
+    template: post
 
   /en/:
     permalink: /en/{slug}/
-    filter: 'tag:en+tag:-[hash-portfolio,hash-kusi-doc,hash-podcast]'
-    template: index
-
-  # Default (fallback for backward compatibility)
-  /:
-    permalink: /{slug}/
-    template: index
+    filter: 'tag:en+tag:-[kusi-doc,team,portfolio,news,podcast]'
+    template: post
 
 taxonomies:
   tag: /tag/{slug}/

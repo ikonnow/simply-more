@@ -1,0 +1,34 @@
+{{!-- Multilingual Navigation Mobile --}}
+<div class="py-4 flex-auto">
+    <ul class="flex flex-col items-center">
+        {{#match @site.locale "de"}}
+            {{!-- German Navigation --}}
+            <li class="mb-4">
+                <a href="/info/" class="hover:text-primary {{#is "page"}}{{#match post.slug "info"}}text-primary{{/match}}{{/is}}">FAQ</a>
+            </li>
+            <li class="mb-4">
+                <a href="/profil/" class="hover:text-primary {{#is "page"}}{{#match post.slug "profil"}}text-primary{{/match}}{{/is}}">Team</a>
+            </li>
+            <li class="mb-4">
+                <a href="/referenzen/" class="hover:text-primary {{#is "page"}}{{#match post.slug "referenzen"}}text-primary{{/match}}{{/is}}">Portfolio</a>
+            </li>
+            <li class="mb-4">
+                <a href="/aktuell/" class="hover:text-primary {{#is "page"}}{{#match post.slug "aktuell"}}text-primary{{/match}}{{/is}}">Now</a>
+            </li>
+        {{else}}
+            {{!-- English Navigation --}}
+            <li class="mb-4">
+                <a href="/faq/" class="hover:text-primary {{#is "page"}}{{#match post.slug "faq"}}text-primary{{/match}}{{/is}}">FAQ</a>
+            </li>
+            <li class="mb-4">
+                <a href="/team/" class="hover:text-primary {{#is "page"}}{{#match post.slug "team"}}text-primary{{/match}}{{/is}}">Team</a>
+            </li>
+            <li class="mb-4">
+                <a href="/portfolio/" class="hover:text-primary {{#is "page"}}{{#match post.slug "portfolio"}}text-primary{{/match}}{{/is}}">Portfolio</a>
+            </li>
+            <li class="mb-4">
+                <a href="/now/" class="hover:text-primary {{#is "page"}}{{#match post.slug "now"}}text-primary{{/match}}{{/is}}">Now</a>
+            </li>
+        {{/match}}
+    </ul>
+</div>

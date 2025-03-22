@@ -2,7 +2,7 @@
     <div class="header-wrap mx-auto flex items-center flex-auto px-4 w-full max-w-extreme">
         {{!-- Logo --}}
         <div class="header-left mr-5 flex flex-none items-center">
-            <a href="{{@site.url}}"
+            <a href="{{#match @site.locale "de"}}/{{else}}/en/{{/match}}"
                 class="header-logo inline-block leading-none godo-tracking"
                 data-event-category="Header"
                 data-event-action="Logo"
@@ -18,23 +18,91 @@
         </div>
 
         {{!-- Navigation --}}
-        {{#if @site.navigation}}
-            {{#if hasDropDown}}
-                {{navigation navigationDropDown=true}}
-            {{else}}
-                {{navigation}}
-            {{/if}}
-        {{/if}}
+        {{> "multilingual-navigation"}}
 
         <div class="header-right flex-none flex justify-end items-center">
             {{!-- Language Switcher --}}
             <div class="language-switcher relative mr-2">
-                <a role="button" class="js-language-toggle button is-white items-center" aria-label="Language Switcher">
+                <a role="button" class="js-language-toggle button is-white dark:text-white dark:hover:bg-gray-700" aria-label="Language Switcher">
                     <span class="current-language">{{#match @site.locale "de"}}DE{{else}}EN{{/match}}</span>
                 </a>
                 <div class="language-dropdown absolute right-0 top-full mt-1 bg-white dark:bg-gray-800 shadow-md rounded-md hidden">
-                    <a href="/de/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 {{#match @site.locale "de"}}font-bold{{/match}}">DE</a>
-                    <a href="/en/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 {{#match @site.locale "en"}}font-bold{{/match}}">EN</a>
+                    {{#if post}}
+                        {{!-- Handle author pages specifically --}}
+                        {{#is "author"}}
+                            {{#match @site.locale "de"}}
+                                {{!-- Currently on German author page, link to English --}}
+                                <a href="/team/{{slug}}/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white">EN</a>
+                                <a href="/profil/{{slug}}/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white font-bold">DE</a>
+                            {{else}}
+                                {{!-- Currently on English author page, link to German --}}
+                                <a href="/team/{{slug}}/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white font-bold">EN</a>
+                                <a href="/profil/{{slug}}/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white">DE</a>
+                            {{/match}}
+                        {{else}}
+                            {{!-- Handle regular posts/pages --}}
+                            {{#has tag="en"}}
+                                {{#get "posts" filter="primary_author:{{primary_author.slug}}+tag:de+slug:{{slug}}" limit="1" as |translated|}}
+                                    {{#if translated}}
+                                        {{#foreach translated}}
+                                            <a href="{{url}}" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white {{#match @site.locale "de"}}font-bold{{/match}}">DE</a>
+                                        {{/foreach}}
+                                    {{else}}
+                                        <a href="/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white {{#match @site.locale "de"}}font-bold{{/match}}">DE</a>
+                                    {{/if}}
+                                {{/get}}
+                                <a href="/en/{{slug}}/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white font-bold">EN</a>
+                            {{else}}
+                                {{#has tag="de"}}
+                                    <a href="/{{slug}}/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white font-bold">DE</a>
+                                    {{#get "posts" filter="primary_author:{{primary_author.slug}}+tag:en+slug:{{slug}}" limit="1" as |translated|}}
+                                        {{#if translated}}
+                                            {{#foreach translated}}
+                                                <a href="{{url}}" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white {{#match @site.locale "en"}}font-bold{{/match}}">EN</a>
+                                            {{/foreach}}
+                                        {{else}}
+                                            <a href="/en/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white {{#match @site.locale "en"}}font-bold{{/match}}">EN</a>
+                                        {{/if}}
+                                    {{/get}}
+                                {{else}}
+                                    <a href="/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white {{#match @site.locale "de"}}font-bold{{/match}}">DE</a>
+                                    <a href="/en/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white {{#match @site.locale "en"}}font-bold{{/match}}">EN</a>
+                                {{/has}}
+                            {{/has}}
+                        {{/is}}
+                    {{else}}
+                        {{!-- Handle collection pages --}}
+                        {{#is "home"}}
+                            <a href="/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white {{#match @site.locale "de"}}font-bold{{/match}}">DE</a>
+                            <a href="/en/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white {{#match @site.locale "en"}}font-bold{{/match}}">EN</a>
+                        {{else}}
+                            {{!-- Map collection pages between languages --}}
+                            {{#is "author"}}
+                                {{#match @site.locale "de"}}
+                                    <a href="/profil/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white font-bold">DE</a>
+                                    <a href="/team/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white">EN</a>
+                                {{else}}
+                                    <a href="/profil/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white">DE</a>
+                                    <a href="/team/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white font-bold">EN</a>
+                                {{/match}}
+                            {{else}}
+                                {{#is "tag"}}
+                                    {{!-- Handle tag pages --}}
+                                    {{#match @site.locale "de"}}
+                                        <a href="/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white font-bold">DE</a>
+                                        <a href="/en/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white">EN</a>
+                                    {{else}}
+                                        <a href="/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white">DE</a>
+                                        <a href="/en/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white font-bold">EN</a>
+                                    {{/match}}
+                                {{else}}
+                                    {{!-- Default for other collection pages --}}
+                                    <a href="/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white {{#match @site.locale "de"}}font-bold{{/match}}">DE</a>
+                                    <a href="/en/" class="language-option block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white {{#match @site.locale "en"}}font-bold{{/match}}">EN</a>
+                                {{/is}}
+                            {{/is}}
+                        {{/is}}
+                    {{/if}}
                 </div>
             </div>
 
